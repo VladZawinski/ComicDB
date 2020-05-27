@@ -41,7 +41,6 @@ function getHighQualityImagePath(originalPath){
 }
 
 
-
 module.exports = {
      fetchComicsByUniverse
 }

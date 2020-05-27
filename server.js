@@ -6,6 +6,8 @@ const supernews = require('./modules/superheroesnews')
 const port = process.env.PORT || 1887
 
 app.get('/news', (req, res) => {
+     console.log("Requested");
+     
      supernews.fetchComicsByUniverse()
      .then(r => res.status(200).send(
           {
