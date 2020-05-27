@@ -1,0 +1,18 @@
+const express = require('express')
+const app = express()
+
+const supernews = require('./modules/superheroesnews')
+
+app.get('/news', (req, res) => {
+     supernews.fetchComicsByUniverse()
+     .then(r => res.status(200).send(
+          {
+               latest_news: r
+          }
+     ))
+     .catch(e => res.status(501).send({message: "Something went wrong"}))
+});
+
+app.listen(1887, () => {
+     console.log(`Server started on port `);
+});
