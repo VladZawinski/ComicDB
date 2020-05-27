@@ -3,6 +3,8 @@ const app = express()
 
 const supernews = require('./modules/superheroesnews')
 
+const port = process.env.PORT || 1887
+
 app.get('/news', (req, res) => {
      supernews.fetchComicsByUniverse()
      .then(r => res.status(200).send(
@@ -13,6 +15,6 @@ app.get('/news', (req, res) => {
      .catch(e => res.status(501).send({message: "Something went wrong"}))
 });
 
-app.listen(1887, () => {
-     console.log(`Server started on port `);
+app.listen(port, () => {
+     console.log(`Server started on port ${port}`);
 });
