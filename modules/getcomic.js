@@ -46,6 +46,7 @@ const getComicsByUniverse = (universe,page) => {
 }
 
 
+// Done?
 function createUniverseURL(universe,page){
      return `${base_url}/cat/${universe}/page/${page}`
 }
