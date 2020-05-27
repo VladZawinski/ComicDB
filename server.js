@@ -15,6 +15,12 @@ app.get('/news', (req, res) => {
      .catch(e => res.status(501).send({message: "Something went wrong"}))
 });
 
+app.get('*', (req, res) => {
+     res.status(404).send({
+          message: "GTFO and STFU"
+     });
+});
+
 app.listen(port, () => {
      console.log(`Server started on port ${port}`);
 });
