@@ -4,7 +4,7 @@ const app = express()
 const supernews = require('./modules/superheroesnews')
 const getComic = require('./modules/getcomic')
 const deadline = require('./modules/deadlinenews')
-
+const newsScience = require('./modules/newsscience')
 // Port changes
 const port = process.env.PORT || 1887
 
@@ -36,9 +36,15 @@ app.get('/comic/universe/:name/:page', (req, res) => {
           .catch(e=> res.status(501).send({message: 'Something went wrong'}))
 });
 
+async function fetchLandingPageTwo(){
+     const scienceNews = newsScience.fetchNewsScience(1)
 
-// Something went wrong
+}
 
+app.get('/home/:page', (req, res) => {
+     fetchLandingPageOne()
+     .then(result => res.send(result))
+});
 
 app.get('*', (req, res) => {
      res.status(404).send({
@@ -49,3 +55,16 @@ app.get('*', (req, res) => {
 app.listen(port, () => {
      console.log(`Server started on port ${port}`);
 });
+
+
+async function fetchLandingPageOne(){
+     const heroesNews = await supernews.fetchComicsByUniverse()
+     const marvel = await getComic.getComicsByUniverse('marvel',1)
+     const dc = await getComic.getComicsByUniverse('dc',1)
+     
+     return {
+          heroes_news : heroesNews,
+          marvel_comic : marvel,
+          dc_comic : dc
+     }
+}
