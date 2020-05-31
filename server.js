@@ -81,6 +81,7 @@ async function fetchLandingPageTwo(){
      const gamingNews = await gameNews.fetchLatestGamingNews()
 
      return {
+          last : true,
           science_news : scienceNews,
           anime_news: anime,
           gaming_news: gamingNews
