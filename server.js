@@ -5,6 +5,9 @@ const supernews = require('./modules/superheroesnews')
 const getComic = require('./modules/getcomic')
 const deadline = require('./modules/deadlinenews')
 const newsScience = require('./modules/newsscience')
+const animeNews = require('./modules/animenews')
+const gameNews = require('./modules/pcgamer')
+
 // Port changes
 const port = process.env.PORT || 1887
 
@@ -36,14 +39,17 @@ app.get('/comic/universe/:name/:page', (req, res) => {
           .catch(e=> res.status(501).send({message: 'Something went wrong'}))
 });
 
-async function fetchLandingPageTwo(){
-     const scienceNews = newsScience.fetchNewsScience(1)
-
-}
-
 app.get('/home/:page', (req, res) => {
-     fetchLandingPageOne()
-     .then(result => res.send(result))
+     const page = req.params.page
+
+     if(page == 1){
+          fetchLandingPageOne().then(result => res.status(200).send(result))
+     }else if (page == 2){
+          fetchLandingPageTwo().then(result => res.status(200).send(result))
+     }else {
+          res.send({message: 'No more articles'});
+     }
+     
 });
 
 app.get('*', (req, res) => {
@@ -68,3 +74,17 @@ async function fetchLandingPageOne(){
           dc_comic : dc
      }
 }
+
+async function fetchLandingPageTwo(){
+     const scienceNews = await newsScience.fetchNewsScience(1)
+     const anime = await animeNews.fetchAnimeNews()
+     const gamingNews = await gameNews.fetchLatestGamingNews()
+
+     return {
+          science_news : scienceNews,
+          anime_news: anime,
+          gaming_news: gamingNews
+     }
+}
+
+
