@@ -32,11 +32,10 @@ app.get('/news', (req, res) => {
 });
 
 app.get('/movie/news', (req, res) => {
-     console.log(req);
+     const news = db.getDeadLineNews()
      
-     deadline.fetchLatestNews(1)
-          .then(result => res.status(201).send({news: result}))
-          .catch(e => res.status(501).send({message: 'Something went wrong'}))
+     res.status(200).send({news : news})
+
 });
 
 app.get('/comic/universe/:name/:page', (req, res) => {
