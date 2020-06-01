@@ -1,24 +1,40 @@
 const express = require('express')
 const app = express()
 
-const supernews = require('./modules/superheroesnews')
-const getComic = require('./modules/getcomic')
-const deadline = require('./modules/deadlinenews')
-const newsScience = require('./modules/newsscience')
-const animeNews = require('./modules/animenews')
-const gameNews = require('./modules/pcgamer')
+const scraper = require('../utils/scraper')
+const supernews = require('../modules/superheroesnews')
+const getComic = require('../modules/getcomic')
+const deadline = require('../modules/deadlinenews')
+const newsScience = require('../modules/newsscience')
+const animeNews = require('../modules/animenews')
+const gameNews = require('../modules/pcgamer')
+
+const db = require('./database.js')
 
 // Port changes
 const port = process.env.PORT || 1887
 
 app.get('/news', (req, res) => {
      supernews.fetchComicsByUniverse()
-     .then(r => res.status(200).send(
-          {
-               latest_news: r
+     .then(
+          r => {
+               db.insertHeroesNews(r)
+               res.send(db.getAllHeroesNews());
+               
           }
-     ))
+     )
+     // .then(r => res.status(200).send(
+     //      {
+     //           latest_news: r
+     //      }
+     // ))
      .catch(e => res.status(501).send({message: "Something went wrong"}))
+});
+
+app.get('/memory', (req, res) => {
+     console.log(db.getComicsByUniverse());
+     
+     res.send(db.getComicsByUniverse()[0]);
 });
 
 app.get('/movie/news', (req, res) => {
@@ -62,6 +78,7 @@ app.listen(port, () => {
      console.log(`Server started on port ${port}`);
 });
 
+scraper.scrapeInInterval(5000)
 
 async function fetchLandingPageOne(){
      const heroesNews = await supernews.fetchComicsByUniverse()
@@ -87,5 +104,7 @@ async function fetchLandingPageTwo(){
           gaming_news: gamingNews
      }
 }
+
+
 
 

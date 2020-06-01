@@ -1,6 +1,6 @@
 const cheerio = require('cheerio')
 const fetch = require('node-fetch')
-const util = require('../modules/utils')
+const util = require('../utils/utils')
 const base_url = "https://www.newscientist.com"
 
 const fetchNewsScience = async (page) => {

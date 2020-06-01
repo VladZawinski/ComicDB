@@ -1,6 +1,6 @@
 const cheerio = require('cheerio')
 const fetch = require('node-fetch')
-const util = require('./utils')
+const util = require('../utils/utils')
 
 const base_url = 'https://getcomics.info/'
 
@@ -27,7 +27,8 @@ const getComicsByUniverse = (universe,page) => {
                               uuid : util.generateUUID(),
                               title: title,
                               link: link,
-                              img_url: img_url
+                              img_url: img_url,
+                              universe: universe
                          }
                     )
                })

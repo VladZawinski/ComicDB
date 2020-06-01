@@ -1,6 +1,6 @@
 const cheerio = require('cheerio');
 const fetch = require('node-fetch');
-const util = require('./utils')
+const util = require('../utils/utils')
 
 const base_url = 'https://deadline.com/'
 
