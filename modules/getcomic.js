@@ -36,11 +36,7 @@ const getComicsByUniverse = (universe,page) => {
                
                console.log(totalPage);
                
-               resolve({
-                    category_name : categoryName,
-                    total_page: totalPage,
-                    posts : result
-               })
+               resolve(result)
           })
           .catch(e => reject(e))
      })

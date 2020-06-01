@@ -17,14 +17,45 @@ const scrapeInInterval = async (amountOfTime) => {
 }
 
 async function scrape() {
-     const comic = await getComic.getComicsByUniverse('marvel',1)
-     console.log(comic);
-     
-     removeAndInsertComics(comic)
+     const marvel = await getComic.getComicsByUniverse('marvel',1)
+     removeAndInsertComics('marvel',marvel)
+     const dc = await getComic.getComicsByUniverse('dc',1)
+     removeAndInsertComics('dc',dc)
+     const dl = await deadline.fetchLatestNews(1)
+     removeAndInsertDeadlineNews(dl)
+     const heroNews = await supernews.fetchComicsByUniverse()
+     removeAndInsertHeroesNews(heroNews)
+     const scienceNews = await newsScience.fetchNewsScience(1)
+     removeAndInsertNewsScienceNews(scienceNews)
+     const anime = await animeNews.fetchAnimeNews()
+     removeAndInsertAnimeNews(anime)
+     const game = await gameNews.fetchLatestGamingNews()
+     removeAndInsertGamingNews(game)
 }
 
-function removeAndInsertComics(comics) {
-     database.insertComics(comics)
+function removeAndInsertComics(universe,comics) {     
+     database.insertComics(universe,comics)
+}
+
+function removeAndInsertDeadlineNews(news){
+     database.insertDeadLineNews(news)
+}
+
+function removeAndInsertHeroesNews(news) {
+     database.insertHeroesNews(news)
+}
+
+function removeAndInsertAnimeNews(news){
+     database.insertAnimeNews(news)
+}
+
+
+function removeAndInsertGamingNews(news) {
+     database.insertGamingNews(news)
+}
+
+function removeAndInsertNewsScienceNews(news){
+     database.insertNewsScienceNews(news)
 }
 
 module.exports = {
