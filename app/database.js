@@ -14,7 +14,7 @@ const gameNewsCollection = db.addCollection('game_news')
  */
 function insertHeroesNews (news){
      if(news){
-          heroesCollection.remove([])
+          heroesCollection.chain().find({}).remove()
           heroesCollection.insert(news)
      }
 }

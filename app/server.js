@@ -73,7 +73,7 @@ app.listen(port, () => {
      console.log(`Server started on port ${port}`);
 });
 
-scraper.scrapeInInterval(600000)
+scraper.scrapeInInterval(4000)
 
 /**
  * News,
