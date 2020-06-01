@@ -7,7 +7,9 @@ const newsScience = require('../modules/newsscience')
 const animeNews = require('../modules/animenews')
 const gameNews = require('../modules/pcgamer')
 
+
 const scrapeInInterval = async (amountOfTime) => {
+     scrape()
      setInterval(() => {
           scrape()
      },amountOfTime)

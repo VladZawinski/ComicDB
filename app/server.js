@@ -78,7 +78,7 @@ app.listen(port, () => {
      console.log(`Server started on port ${port}`);
 });
 
-scraper.scrapeInInterval(5000)
+scraper.scrapeInInterval(900000)
 
 async function fetchLandingPageOne(){
      const heroesNews = await supernews.fetchComicsByUniverse()
